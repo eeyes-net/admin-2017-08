@@ -14,7 +14,7 @@
 1. 将代码解压到服务器
 2. 创建数据库、用户
 3. `composer install`
-4. 修改`.env`文件中的数据库、用户名、密码
+4. 修改`.env`文件中的数据库、用户名、密码、应用URL
 5. `php artisan vendor:publish --tag=laravel-admin`
 6. `php artisan admin:install`
 7. `php artisan storage:link`
@@ -31,7 +31,7 @@
 
 1. `composer create-project --prefer-dist laravel/laravel admin`
 2. 创建数据库、用户
-3. 修改`.env`文件中的数据库、用户名、密码
+3. 修改`.env`文件中的数据库、用户名、密码、应用URL
 4. `composer require encore/laravel-admin`
 5. `php artisan vendor:publish --tag=laravel-admin`
 6. `php artisan admin:install`
