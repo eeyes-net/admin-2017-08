@@ -16,21 +16,22 @@ class PermissionController extends Controller
         $admin = Administrator::where('username', $username)->first();
         $can = null;
         $msg = 'Unknown error';
-        if ($admin) {
-            $can = $admin->can($permission);
-            if ($can) {
-                $msg = 'OK';
+        if (!$admin) {
+            $can = false;
+            $msg = 'User not exists';
+        } else {
+            $permission = Permission::where('slug', $permission)->first();
+            if (!$permission) {
+                $can = false;
+                $msg = 'Permission not exists';
             } else {
-                $permission = Permission::where('name', $permission)->first();
-                if ($permission) {
-                    $msg = 'Forbidden';
+                $can = $admin->can($permission);
+                if ($can) {
+                    $msg = 'OK';
                 } else {
-                    $msg = 'Permission not exists';
+                    $msg = 'Forbidden';
                 }
             }
-        } else {
-            $msg = 'User not exists';
-            $can = false;
         }
         return [
             'can' => $can,
