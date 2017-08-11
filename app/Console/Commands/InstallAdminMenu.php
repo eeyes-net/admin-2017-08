@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Encore\Admin\Auth\Database\Menu;
+use Encore\Admin\Auth\Database\Role;
 use Illuminate\Console\Command;
 
 class InstallAdminMenu extends Command
@@ -38,19 +39,24 @@ class InstallAdminMenu extends Command
      */
     public function handle()
     {
-        $menus = [
-            ['title' => 'API log', 'icon' => 'fa-history', 'uri' => 'api_logs'],
+        $menus_data = [
+            ['title' => 'API log', 'icon' => 'fa-history', 'uri' => 'api_logs', 'roles' => ['administrator']],
         ];
-        foreach ($menus as $menu) {
-            /** @var Menu $menu_model */
-            $menu_model = Menu::firstOrNew(['uri' => $menu['uri']]);
-            if ($menu_model->exists) {
-                $this->info("Menu {$menu['title']} already exist");
+        foreach ($menus_data as $menu_data) {
+            /** @var Menu $menu */
+            $menu = Menu::firstOrNew(['uri' => $menu_data['uri']]);
+            if ($menu->exists) {
+                $this->info("Menu {$menu_data['title']} already exist");
             } else {
-                $menu_model->title = $menu['title'];
-                $menu_model->icon = $menu['icon'];
-                $menu_model->save();
-                $this->info("Menu {$menu['title']} added ok");
+                $menu->title = $menu_data['title'];
+                $menu->icon = $menu_data['icon'];
+                $menu->save();
+                $this->info("Menu {$menu_data['title']} added ok");
+            }
+            if (isset($menu_data['roles'])) {
+                $roles = Role::whereIn('slug', $menu_data['roles'])->get();
+                $menu->roles()->sync($roles);
+                $this->info("Menu {$menu_data['title']} set roles ok");
             }
         }
     }

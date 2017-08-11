@@ -14,7 +14,7 @@
 1. 将代码解压到服务器
 2. 创建数据库、用户
 3. `composer install`
-4. 修改`.env`文件中的数据库、用户名、密码、应用URL
+4. 修改`.env`文件中的数据库、用户名、密码，应用URL，CAS域名、端口
 5. `php artisan vendor:publish --tag=laravel-admin`
 6. `php artisan admin:install`
 7. `php artisan admin:menu:install`
@@ -23,16 +23,38 @@
 
 ## 说明
 
+### 使用方法
+
+使用下方的函数，返回是一个assoc数组，如果`$result['can'] === true`即为拥有权限
+
+```php
+/**
+ * 检查e瞳统一管理权限
+ *
+ * @param string $username 用户名(NetId)
+ * @param string $permission 权限代号
+ *
+ * @return array ['can' => mixed, 'msg' => string]
+ */
+function eeyes_admin_permission_check($username, $permission)
+{
+    return json_decode(file_get_contents('http://admin.dev/api/permission/can?' . http_build_query([
+            'username' => $username,
+            'permission' => $permission,
+        ])), true);
+}
+```
+
 ### 参考文献
 
-* [Laravel Documatation](https://laravel.com/docs/5.4)
-* [Laravel Admin Documatation](https://z-song.github.io/laravel-admin/#/zh/)
+* [Laravel Documentation](https://laravel.com/docs/5.4)
+* [Laravel Admin Documentation](https://z-song.github.io/laravel-admin/#/zh/)
 
 ### 本应用基础开发过程十分简单
 
 1. `composer create-project --prefer-dist laravel/laravel admin`
 2. 创建数据库、用户
-3. 修改`.env`文件中的数据库、用户名、密码、应用URL
+3. 修改`.env`文件中的数据库、用户名、密码，应用URL，CAS域名、端口
 4. `composer require encore/laravel-admin`
 5. `php artisan vendor:publish --tag=laravel-admin`
 6. `php artisan admin:install`
@@ -40,9 +62,9 @@
 8. `php artisan make:controller Api/AdminController`
 9. 编辑`app/Http/Controllers/Api/AdminController.php`，添加API逻辑
 10. 在`routes/api.php`中添加相应路由
-11. 其他附加功能省略说明
+11. API记录、CAS登录等附加功能不做说明
 
-* 使用`php artisan serve`测试
+* 使用`php artisan serve`测试（注意：php-cli或php-cgi的单线程服务器相互调用会造成阻塞）
 
 ## CONTRIBUTORS
 

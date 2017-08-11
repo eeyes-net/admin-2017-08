@@ -10,6 +10,10 @@ Route::group([
     'middleware' => ['web', 'admin'],
 ], function (Router $router) {
 
+    $router->get('auth/login', 'AuthController@login');
+    $router->post('auth/login', 'AuthController@login');
+    $router->get('auth/logout', 'AuthController@logout');
+
     $router->get('/', 'HomeController@index');
     $router->resource('api_logs', 'ApiLogController');
 
