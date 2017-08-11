@@ -17,8 +17,9 @@
 4. 修改`.env`文件中的数据库、用户名、密码、应用URL
 5. `php artisan vendor:publish --tag=laravel-admin`
 6. `php artisan admin:install`
-7. `php artisan storage:link`
-8. 将服务器的根目录设置在`public/`目录下
+7. `php artisan admin:menu:install`
+8. `php artisan storage:link`
+9. 将服务器的根目录设置在`public/`目录下
 
 ## 说明
 
@@ -39,6 +40,7 @@
 8. `php artisan make:controller Api/AdminController`
 9. 编辑`app/Http/Controllers/Api/AdminController.php`，添加API逻辑
 10. 在`routes/api.php`中添加相应路由
+11. 其他附加功能省略说明
 
 * 使用`php artisan serve`测试
 

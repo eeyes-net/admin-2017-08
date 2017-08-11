@@ -25,7 +25,7 @@ class HomeController extends Controller
                 $row->column(3, new InfoBox('Users', 'user', 'aqua', '/admin/auth/users', Administrator::count()));
                 $row->column(3, new InfoBox('Roles', 'users', 'green', '/admin/auth/roles', Role::count()));
                 $row->column(3, new InfoBox('Permissions', 'check', 'red', '/admin/auth/permissions', Permission::count()));
-                $row->column(3, new InfoBox('Api Logs', 'file-text', 'yellow', '/admin/', ApiLog::count()));
+                $row->column(3, new InfoBox('Api Logs', 'history', 'yellow', '/admin/', ApiLog::count()));
             });
 
             $headers = ['Id', 'Username', 'Permission', 'Response', 'Time'];
