@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('admin/{username}/can', 'Api\PermissionController@can');
+Route::get('permission/can', 'Api\PermissionController@can');
