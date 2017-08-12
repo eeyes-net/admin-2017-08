@@ -79,15 +79,14 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    e瞳统一身份管理系统
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="/docs">Documentation</a>
+                    <a href="{{ url(config('admin.prefix')) }}">Administration</a>
+                    <a href="https://github.com/eeyes-net/admin-2017-08">For me on GitHub</a>
+                    <a href="https://www.eeyes.net">@eeyes.net</a>
                 </div>
             </div>
         </div>
