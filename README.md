@@ -1,4 +1,4 @@
-# e瞳统一身份系统
+# e瞳统一权限管理系统
 
 <https://admin.eeyes.net/>
 

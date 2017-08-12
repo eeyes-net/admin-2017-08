@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    e瞳统一身份管理系统
+                    e瞳统一权限管理系统
                 </div>
 
                 <div class="links">
