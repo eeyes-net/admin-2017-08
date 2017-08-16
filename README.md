@@ -18,8 +18,9 @@
 5. `php artisan vendor:publish --tag=laravel-admin`
 6. `php artisan admin:install`
 7. `php artisan admin:menu:install`
-8. `php artisan storage:link`
-9. 将服务器的根目录设置在`public/`目录下
+8. `php artisan admin:user:create 你的NetID`
+9. `php artisan storage:link`
+10. 将服务器的根目录设置在`public/`目录下
 
 ## [API](docs/api.md)
 
