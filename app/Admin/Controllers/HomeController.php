@@ -28,9 +28,13 @@ class HomeController extends Controller
                 $row->column(3, new InfoBox('Api Logs', 'history', 'yellow', '/admin/', ApiLog::count()));
             });
 
+            /**
+             * Permission API Log Block
+             */
+
             $headers = ['Id', 'Username', 'Permission', 'Response', 'Time'];
 
-            $rows = ApiLog::latest()->paginate()->map(function ($item) {
+            $rows = ApiLog::latest()->where('path', 'api/permission/can')->paginate()->map(function ($item) {
                 return [
                     $item->id,
                     $item->username,
@@ -40,7 +44,25 @@ class HomeController extends Controller
                 ];
             })->toArray();
 
-            $content->row((new Box('Permission API Log', new Table($headers, $rows)))->style('info')->solid());
+            $content->row((new Box('Permission API Log', new Table($headers, $rows)))->style('primary')->solid());
+
+            /**
+             * Token API Log Block
+             */
+
+            $headers = ['Id', 'Token', 'Response', 'Time'];
+
+            $rows = ApiLog::latest()->where('path', 'api/token')->paginate()->map(function ($item) {
+                parse_str($item->query, $query);
+                return [
+                    $item->id,
+                    $query['token'],
+                    $item->response,
+                    $item->created_at,
+                ];
+            })->toArray();
+
+            $content->row((new Box('Token API Log', new Table($headers, $rows)))->style('info')->solid());
         });
     }
 }

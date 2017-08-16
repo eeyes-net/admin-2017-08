@@ -12,3 +12,4 @@
 */
 
 Route::get('permission/can', 'Api\PermissionController@can');
+Route::get('token', 'Api\TokenController@show');
