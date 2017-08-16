@@ -25,14 +25,18 @@ class ApiLogController extends Controller
                 $grid->model()->orderBy('id', 'DESC');
 
                 $grid->id('ID')->sortable();
-                $grid->username()->sortable();
-                $grid->path()->label('info');
-                $grid->ip()->label('primary')->sortable();
+                $grid->path()->label('info')->sortable();
+
+                $grid->username()->label('primary')->sortable();
+                $grid->permission()->label('warning')->sortable();
                 $grid->response()->value(function ($input) {
                     $input = json_decode($input, true);
 
                     return '<code>' . json_encode($input, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . '</code>';
                 });
+
+                $grid->query();
+                $grid->ip()->sortable();
 
                 $grid->created_at(trans('admin::lang.created_at'));
 

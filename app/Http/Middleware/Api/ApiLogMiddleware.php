@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Middleware\Api;
 
 use App\ApiLog;
 use Closure;
@@ -22,9 +22,11 @@ class ApiLogMiddleware
             $apiLog = new ApiLog();
             $apiLog->username = mb_substr($request->get('username'), 0, 190);
             $apiLog->permission = mb_substr($request->get('permission'), 0, 50);
-            $apiLog->user_id = null;
+            $apiLog->method = $request->method();
             $apiLog->path = $request->path();
-            $apiLog->ip = $request->getClientIp();
+            $apiLog->ip = $request->ip();
+            $apiLog->query = $request->getQueryString();
+            $apiLog->body = $request->getContent();
             $apiLog->response = '';
             $apiLog->save();
         }
@@ -33,10 +35,6 @@ class ApiLogMiddleware
         $response = $next($request);
 
         if (isset($apiLog)) {
-            $admin = Administrator::where('username', $apiLog->username)->first();
-            if ($admin) {
-                $apiLog->user_id = $admin->id;
-            }
             $apiLog->response = json_encode($response->getOriginalContent(), JSON_UNESCAPED_UNICODE);
             $apiLog->save();
         }

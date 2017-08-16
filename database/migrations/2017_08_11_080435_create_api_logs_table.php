@@ -17,11 +17,12 @@ class CreateApiLogsTable extends Migration
             $table->increments('id');
 
             $table->string('username', 190)->default('')->comment('用户名(NetId)');
-            $table->integer('user_id')->unsigned()->nullable()->comment('admin_users表的外键');
-            $table->foreign('user_id')->references('id')->on('admin_users');
             $table->string('permission', 50)->default('')->comment('权限名');
-            $table->string('path')->comment('网址');
+            $table->string('method')->comment('HTTP方法');
+            $table->string('path')->comment('路径');
             $table->string('ip', 15)->comment('IP');
+            $table->text('query')->comment('Query string');
+            $table->text('body')->comment('POST body');
             $table->text('response')->comment('返回的json');
             $table->timestamps();
 
