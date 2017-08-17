@@ -12,7 +12,7 @@ class PermissionController extends Controller
     public function can(Request $request)
     {
         $username = $request->get('username');
-        $permission = $request->get('permission');
+        $permission_slug = $request->get('permission');
         $admin = Administrator::where('username', $username)->first();
         $can = null;
         $msg = 'Unknown error';
@@ -20,12 +20,12 @@ class PermissionController extends Controller
             $can = false;
             $msg = 'User not exists';
         } else {
-            $permission = Permission::where('slug', $permission)->first();
+            $permission = Permission::where('slug', $permission_slug)->first();
             if (!$permission) {
                 $can = false;
                 $msg = 'Permission not exists';
             } else {
-                $can = $admin->can($permission);
+                $can = $admin->can($permission_slug);
                 if ($can) {
                     $msg = 'OK';
                 } else {
