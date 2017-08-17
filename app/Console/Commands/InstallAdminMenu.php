@@ -40,13 +40,14 @@ class InstallAdminMenu extends Command
     public function handle()
     {
         $menus_data = [
+            ['title' => 'Token', 'icon' => 'fa-tag', 'uri' => 'tokens', 'roles' => ['administrator']],
             ['title' => 'API log', 'icon' => 'fa-history', 'uri' => 'api_logs', 'roles' => ['administrator']],
         ];
         foreach ($menus_data as $menu_data) {
             /** @var Menu $menu */
             $menu = Menu::firstOrNew(['uri' => $menu_data['uri']]);
             if ($menu->exists) {
-                $this->info("Menu {$menu_data['title']} already exist");
+                $this->warn("Menu {$menu_data['title']} already exist");
             } else {
                 $menu->title = $menu_data['title'];
                 $menu->icon = $menu_data['icon'];

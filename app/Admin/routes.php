@@ -16,5 +16,6 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
     $router->resource('api_logs', 'ApiLogController');
+    $router->resource('tokens', 'TokenController');
 
 });
